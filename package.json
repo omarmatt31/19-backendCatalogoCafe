@@ -1,0 +1,13 @@
+{
+  "name": "19-backendcatalogocafe",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Mattos Omar",
+  "license": "MIT",
+  "description": "",
+  "type": "module"
+}
