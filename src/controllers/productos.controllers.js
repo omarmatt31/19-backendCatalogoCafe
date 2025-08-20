@@ -47,3 +47,18 @@ export const leerProductoPorId = async(req, res)=>{
         res.status(500).json({mensaje: 'Error al obtener el producto'})
     }
 }
+
+export const borrarProductoPorId = async(req, res)=>{
+    try{
+        //1- buscar el poroducto por ir y luego borrar
+        const productoEliminado = await Producto.findByIdAndDelete(req.params.id)
+        if(!productoEliminado){
+            return res.status(404).json({mensaje: 'Producto no encontrado'})
+        }
+        //3- Responder al front
+        res.status(200).json({mensaje: 'Producto eliminado exitosamente'})
+    }catch(error){
+        console.error(error)
+        res.status(500).json({mensaje: 'Error al eliminar el producto'})
+    }
+}
