@@ -5,8 +5,16 @@ export const test = (req, res)=>{
     res.send('Primera prueba desde el backend')
 }
 
-export const leerProductos = (req, res)=>{
-
+export const leerProductos =async(req, res)=>{
+    try{
+        //1- Buscar todos los productos en la base de datos
+        const listaProductos = await Producto.find()
+        //2- enviar la respuesta al front
+        res.status(200).json(listaProductos)
+    }catch(error){
+        console.error(error)
+        res.status(500).json({mensaje: 'Error al leer el producto'})
+    }
 }
 
 export const crearProductos = async(req, res)=>{
@@ -21,5 +29,21 @@ export const crearProductos = async(req, res)=>{
     }catch(error){
         console.error(error)
         res.status(500).json({mensaje: 'Error al crear el producto'})
+    }
+}
+
+export const leerProductoPorId = async(req, res)=>{
+    try{
+        //1- Obtener el parametro del request
+        //2- Pedir a mongoose que encuentre el producto con tal id
+        const productoBuscado = await Producto.findById(req.params.id)
+        if(!productoBuscado){
+            return res.status(404).json({mensaje: 'Producto no encontrado'})
+        }
+        //3- Contestar al front
+        res.status(200).json(productoBuscado)
+    }catch(error){
+        console.error(error)
+        res.status(500).json({mensaje: 'Error al obtener el producto'})
     }
 }
